@@ -14,6 +14,9 @@ angular.module('app').controller("PluginsController", ["pluginsCollection", "$sc
     $scope.size = $route.current.params.size;
     $scope.offset = pluginsCollection.next ? /offset=([^&]+)/.exec(pluginsCollection.next)[1] : null;
     $scope.location = $location;
+    $scope.sortType     = 'name'; // set the default sort type
+    $scope.sortReverse  = false;  // set the default sort order
+
 
     angular.forEach($scope.plugins, function(plugin) {
         Kong.get('/apis/' + plugin.api_id).then(function(api) {

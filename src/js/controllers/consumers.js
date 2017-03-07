@@ -6,6 +6,9 @@ angular.module('app').controller("ConsumersController", ["consumersCollection", 
     $scope.offset = consumersCollection.next ? /offset=([^&]+)/.exec(consumersCollection.next)[1] : null;
     //$scope.offset = encodeURIComponent(consumersCollection.offset);
     $scope.gelato = Kong.config.gelato;
+    $scope.sortType     = 'username'; // set the default sort type
+    $scope.sortReverse  = false;  // set the default sort order
+
     $scope.showDeleteModal = function (username, id) {
         $scope.current = {username: username, id: id};
         $('#deleteConsumer').openModal();

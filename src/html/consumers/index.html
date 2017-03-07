@@ -38,18 +38,35 @@
         </a>
     </p>
 
+    <form class="form-inline">
+      <input ng-model="query" type="text"
+        placeholder="Filter by" autofocus>
+    </form>
+
     <table class="bordered" ng-show="consumers.length >= 1">
         <thead>
         <tr>
-            <th>Username</th>
-            <th>Custom id</th>
-            <th>Created</th>
+            <th>
+                <a href="#/consumers" ng-click="sortType = 'username'; sortReverse = !sortReverse">
+                    Username
+                </a>
+            </th>
+            <th>
+                <a href="#/consumers" ng-click="sortType = 'custom_id'; sortReverse = !sortReverse">
+                    Custom id
+                </a>
+            </th>
+            <th>
+                <a href="#/consumers" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+                    Created
+                </a>
+            </th>
             <th></th>
         </tr>
         </thead>
 
         <tbody>
-        <tr ng-repeat="consumer in consumers">
+        <tr ng-repeat="consumer in consumers | orderBy:sortType:sortReverse | filter:query ">
             <td>{{consumer.username}} <p ng-show="!consumer.username">nope</p></td>
             <td><a ng-show="gelato" href="https://gelato.io/app/developers/{{consumer.custom_id}}">{{consumer.custom_id}}</a>
                 <p ng-show="!gelato">{{consumer.custom_id}}</p>

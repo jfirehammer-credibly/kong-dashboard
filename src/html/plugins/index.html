@@ -50,20 +50,45 @@
         </a>
     </p>
 
+    <form class="form-inline">
+      <input ng-model="query" type="text"
+        placeholder="Filter by" autofocus>
+    </form>
+
     <table class="bordered" ng-show="plugins.length >= 1">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>API</th>
-            <th>Consumer</th>
-            <th>Status</th>
-            <th>Created</th>
+            <th>
+                <a href="#/plugins" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                    Name
+                </a>
+            </th>
+            <th>
+                <a href="#/plugins" ng-click="sortType = 'api_name'; sortReverse = !sortReverse">
+                    API
+                </a>
+            </th>
+            <th>
+                <a href="#/plugins" ng-click="sortType = 'consumer_username'; sortReverse = !sortReverse">
+                    Consumer
+                </a>
+            </th>
+            <th>
+                <a href="#/plugins" ng-click="sortType = 'enabled'; sortReverse = !sortReverse">
+                    Status
+                </a>
+            </th>
+            <th>
+                <a href="#/plugins" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+                    Created
+                </a>
+            </th>
             <th></th>
         </tr>
         </thead>
 
         <tbody>
-        <tr ng-repeat="plugin in plugins">
+        <tr ng-repeat="plugin in plugins | orderBy:sortType:sortReverse | filter:query ">
             <td>{{plugin.name}}</td>
             <td>
                 <a href="#/apis/{{plugin.api_id}}">{{plugin.api_name}}</a>

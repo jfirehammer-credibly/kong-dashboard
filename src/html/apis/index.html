@@ -38,20 +38,45 @@
         </a>
     </p>
 
+    <form class="form-inline">
+      <input ng-model="query" type="text"
+        placeholder="Filter by" autofocus>
+    </form>
+
     <table class="bordered" ng-show="apis.length >= 1">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Request host</th>
-            <th>Request path</th>
-            <th>Upstream url</th>
-            <th>Created</th>
+            <th>
+                <a href="#/apis" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                    Name
+                </a>
+            </th>
+            <th>
+                <a href="#/apis" ng-click="sortType = 'request_host'; sortReverse = !sortReverse">
+                    Request host
+                </a>
+            </th>
+            <th>
+                <a href="#/apis" ng-click="sortType = 'request_path'; sortReverse = !sortReverse">
+                    Request path
+                </a>
+            </th>
+            <th>
+                <a href="#/apis" ng-click="sortType = 'upstream_url'; sortReverse = !sortReverse">
+                    Upstream url
+                </a>
+            </th>
+            <th>
+                <a href="#/apis" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+                    Created
+                </a>
+            </th>
             <th></th>
         </tr>
         </thead>
 
         <tbody>
-        <tr ng-repeat="api in apis">
+        <tr ng-repeat="api in apis | orderBy:sortType:sortReverse | filter:query ">
             <td>{{api.name}}</td>
             <td>{{api.request_host}}</td>
             <td>{{api.request_path}}</td>

@@ -4,6 +4,8 @@ angular.module('app').controller("ApisController", ["initialData", "$scope", "Ko
     $scope.next = initialData.next;
     $scope.size = $route.current.params.size;
     $scope.offset = initialData.next ? /offset=([^&]+)/.exec(initialData.next)[1] : null;
+    $scope.sortType     = 'name'; // set the default sort type
+    $scope.sortReverse  = false;  // set the default sort order
     
     $scope.showDeleteModal = function (name, id) {
         $scope.current = {name: name, id: id};
